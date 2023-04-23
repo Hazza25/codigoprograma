@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+struct Alumno {
+    string nombre;
+    string matricula;
+    string apellidoPaterno;
+    string apellidoMaterno;
+    string carrera;
+    string correoElectronico;
+    string telefono;
+};
+
+void mostrarMenu() {
+    cout << "1. Dar de alta un alumno" << endl;
+    cout << "2. Dar de baja un alumno" << endl;
+    cout << "3. Salir" << endl;
+}
+
+void darDeAlta(vector<Alumno>& alumnos) {
+    Alumno nuevoAlumno;
+    cout << "Ingresa el nombre del alumno: ";
+    getline(cin, nuevoAlumno.nombre);
+    cout << "Ingresa el apellido paterno del alumno: ";
+    getline(cin, nuevoAlumno.apellidoPaterno);
+    cout << "Ingresa el apellido materno del alumno: ";
+    getline(cin, nuevoAlumno.apellidoMaterno);
+    cout << "Ingresa la matricula del alumno: ";
+    getline(cin, nuevoAlumno.matricula);
+    cout << "Ingresa la carrera del alumno: ";
+    getline(cin, nuevoAlumno.carrera);
+    cout << "Ingresa el correo electronico del alumno: ";
+    getline(cin, nuevoAlumno.correoElectronico);
+    cout << "Ingresa el telefono del alumno: ";
+    getline(cin, nuevoAlumno.telefono);
+    alumnos.push_back(nuevoAlumno);
+    cout << "Alumno agregado correctamente" << endl;
+}
+
+void darDeBaja(vector<Alumno>& alumnos) {
+    string matricula;
+    cout << "Ingresa la matricula del alumno que deseas dar de baja: ";
+    getline(cin, matricula);
+    for (size_t i = 0; i < alumnos.size(); i++) {
+        if (alumnos[i].matricula == matricula) {
+            alumnos.erase(alumnos.begin() + i);
+            cout << "Alumno eliminado correctamente" << endl;
+            return;
+        }
+    }
+    cout << "No se encontró ningún alumno con la matricula ingresada" << endl;
+}
+
+int main() {
+    vector<Alumno> alumnos;
+    int opcion;
+    do {
+        mostrarMenu();
+        cout << "Ingresa tu opción: ";
+        cin >> opcion;
+        cin.ignore();
+        switch (opcion) {
+            case 1:
+                darDeAlta(alumnos);
+                break;
+            case 2:
+                darDeBaja(alumnos);
+                break;
+            case 3:
+                cout << "Saliendo del programa" << endl;
+                break;
+            default:
+                cout << "Opción inválida, por favor intenta de nuevo" << endl;
+        }
+    } while (opcion != 3);
+    return 0;
+}
